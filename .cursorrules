@@ -1,0 +1,115 @@
+# Even Demo App - Cursor Rules
+
+## Core Development Principles
+- Keep code simple and decoupled, avoid over-engineering
+- Focus on core functionality, minimal dependencies
+- Provide clean backend communication interface
+- No unnecessary tests, docs, or debug prints
+- Prioritize readability and maintainability over cleverness
+
+## What NOT to Include
+- Complex test frameworks or extensive test files
+- Documentation files (unless explicitly requested)
+- Excessive logging or debug output
+- Complex design patterns or inheritance hierarchies
+- Unnecessary dependencies
+- Over-abstracted helper classes
+
+## Project Structure Guidelines
+
+### Core Architecture
+This is a Flutter app for smart glasses communication via dual Bluetooth:
+- **Main Features**: Even AI, Image Sending, Text Sending
+- **Communication**: Dual BLE (left/right arms as separate connections)
+- **Audio**: LC3 format audio streaming with 30-second max recording
+- **Display**: 488px width limitation, 21px font size, 5 lines per screen
+
+### Directory Structure Rules
+```
+lib/
+├── main.dart              # App entry point
+├── app.dart              # App configuration
+├── ble_manager.dart      # Main BLE management
+├── controllers/          # Business logic controllers
+├── models/              # Data models
+├── services/            # External services (API, BLE, etc.)
+├── utils/               # Utility functions only
+└── views/               # UI components and pages
+    └── features/        # Feature-specific pages
+```
+
+### File Organization
+- Keep controllers focused on specific features
+- Services should handle external communications
+- Models should be simple data classes
+- Utils should contain only pure functions
+- Views should be stateless when possible
+
+## Bluetooth Communication Rules
+
+### Dual BLE Protocol
+- Always send to LEFT side first, then RIGHT after acknowledgment
+- Use proper sequence numbers and packet management
+- Handle microphone activation correctly (right side only)
+- Implement proper CRC checking for image data
+
+### Protocol Implementation
+- Command 0xF5: TouchBar events and Even AI control
+- Command 0x0E: Microphone enable/disable  
+- Command 0xF1: Receive audio data from glasses
+- Command 0x4E: Send AI results and text
+- Command 0x15: Send BMP image packets
+- Command 0x16: CRC validation
+
+### Data Handling
+- Audio: LC3 format, real-time streaming
+- Images: 1-bit 576x136 BMP, 194-byte packets
+- Text: Line-based splitting, 488px width, 5 lines per screen
+- Always handle packet sequencing properly
+
+## Code Style Guidelines
+
+### Dart/Flutter Specific
+- Use meaningful variable names reflecting BLE concepts
+- Keep widget trees shallow and focused
+- Prefer composition over inheritance
+- Use const constructors where possible
+- Handle async operations with proper error handling
+
+### BLE Communication Code
+- Always implement timeout handling
+- Use proper error codes and status checking
+- Maintain packet order and sequence numbers
+- Handle connection state changes gracefully
+
+### State Management
+- Keep state minimal and focused
+- Use appropriate Flutter state management patterns
+- Avoid global state unless necessary for BLE connections
+- Handle connection lifecycle properly
+
+## Performance Requirements
+- Audio latency should be minimal for real-time streaming
+- Image transmission should be chunked appropriately
+- Text rendering should consider 488px display width
+- Battery efficiency for continuous BLE operation
+
+## Security Considerations
+- Validate all incoming BLE data
+- Implement proper pairing and connection security
+- Handle sensitive audio data appropriately
+- Validate image data before transmission
+
+## Error Handling
+- Graceful BLE disconnection handling
+- Proper audio stream error recovery
+- Image transmission failure retry logic
+- User-friendly error messages for connection issues
+
+## Integration Requirements
+- Even AI: 30-second max recording, LC3 audio format
+- Image Display: Support for asset BMP files (image_1.bmp, image_2.bmp)
+- Text Display: Proper line breaking and pagination
+- TouchBar: Handle single/double/triple tap events properly
+
+Remember: This app is specifically for G1 smart glasses communication. Keep implementations focused on the dual BLE architecture and the specific protocols outlined in the README.md file. 
