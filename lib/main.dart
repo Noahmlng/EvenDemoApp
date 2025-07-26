@@ -7,15 +7,33 @@ import 'package:get/get.dart';
 
 
 void main() {
-  BleManager.get();
-  Get.put(EvenaiModelController());
+  print("🚀 Main: Starting Even AI Demo App...");
   
-  runApp(MyApp());
+  try {
+    print("🔧 Main: Initializing BLE Manager...");
+    BleManager.get();
+    print("✅ Main: BLE Manager initialized successfully");
+    
+    print("🔧 Main: Registering EvenAI Model Controller...");
+    Get.put(EvenaiModelController());
+    print("✅ Main: EvenAI Model Controller registered successfully");
+    
+    print("🔧 Main: Starting Flutter app...");
+    runApp(MyApp());
+    print("✅ Main: Flutter app started successfully");
+    
+  } catch (e) {
+    print("❌ Main: Error during app initialization: $e");
+    print("❌ Main: Error type: ${e.runtimeType}");
+    rethrow;
+  }
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("🏗️ MyApp: Building main application widget...");
+    
     return MaterialApp(
       title: 'Even AI Demo',
       theme: ThemeData(

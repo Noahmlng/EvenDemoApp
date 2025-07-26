@@ -28,6 +28,12 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>This app needs Bluetooth access to connect to your smart glasses.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This app needs Bluetooth access to connect to your smart glasses.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs location access to scan for Bluetooth devices (required by iOS for BLE scanning).</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs location access to scan for Bluetooth devices (required by iOS for BLE scanning).</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Permission to pick image from photo library</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
